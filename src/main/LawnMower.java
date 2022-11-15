@@ -42,6 +42,15 @@ public class LawnMower {
 		
 	}
 	
+	private void checkStatus(ArrayList<String> dir) {
+		
+		checkBatteryAndHolder();
+		checkIfFinished();
+		checkBattery();
+		checkGrassHolder();
+
+	}		
+	
 	private ArrayList<String> Iterate() {
 
 		
@@ -64,7 +73,7 @@ public class LawnMower {
 				dir.add("Up");
 			} else {
 				
-				endReached = true;
+				//endReached = true;
 				
 			}
 		}
@@ -84,7 +93,7 @@ public class LawnMower {
 				dir.add("Up");
 			} else {
 				
-				endReached = true;
+				//endReached = true;
 				
 			}
 		}
@@ -145,15 +154,6 @@ public class LawnMower {
 		}	
 	}
 	
-	private void checkStatus(ArrayList<String> dir) {
-		
-		checkBatteryAndHolder();
-		checkIfFinished();
-		checkBattery();
-		checkGrassHolder();
-
-	}		
-	
 	private void returnToBase() {
 		
 		for(int i = dir.size() -1 ; i >= 0; i--) {
@@ -167,7 +167,7 @@ public class LawnMower {
 	
 	private void checkBatteryAndHolder() {
 		
-		if(turnAround() == true && holderFull == true && hasHold == true) {
+		if(turnAround() == true && holderFull == true && hasHold == true && endReached == false) {
 					
 					System.out.println("\n");
 					System.out.println("Battery low and grass holder full... returning to base ! ");
@@ -191,12 +191,13 @@ public class LawnMower {
 			System.out.println("\n");
 			
 			returnToBase();
+			endReached = true;
 		}	
 	}
 	
 	private void checkBattery() {
 		
-		if(turnAround() == true && holderFull != true) {
+		if(turnAround() == true && holderFull != true && endReached == false) {
 			
 			System.out.println("\n");
 			System.out.println("Battery low... returning to base ! ");
@@ -210,7 +211,7 @@ public class LawnMower {
 	
 	private void checkGrassHolder() {
 		
-		if(holderFull == true && hasHold == true && turnAround() != true) {
+		if(holderFull == true && hasHold == true && turnAround() != true && endReached == false) {
 			
 			distance = distance * 2;
 
