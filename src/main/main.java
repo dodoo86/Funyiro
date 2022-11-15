@@ -24,7 +24,7 @@ public class main {
 		  		           { 8, 1, 2, 5, 1, 6, 7, 5, 0, 2, 2 } };
 		
 		//LawnMower a = new LawnMower(85, field, 2);//, true, 5);
-		LawnMower a = new LawnMower(800, field, 4, true, 4);
+		LawnMower a = new LawnMower(800, field, 3, true, 8);
 		//System.out.println(field.length);
 		a.start();
 		

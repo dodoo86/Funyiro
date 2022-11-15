@@ -145,6 +145,15 @@ public class LawnMower {
 		}	
 	}
 	
+	private void checkStatus(ArrayList<String> dir) {
+		
+		checkBatteryAndHolder();
+		checkIfFinished();
+		checkBattery();
+		checkGrassHolder();
+
+	}		
+	
 	private void returnToBase() {
 		
 		for(int i = dir.size() -1 ; i >= 0; i--) {
@@ -156,30 +165,22 @@ public class LawnMower {
 		    
 	}
 	
-	private void checkStatus(ArrayList<String> dir) {
+	private void checkBatteryAndHolder() {
 		
 		if(turnAround() == true && holderFull == true && hasHold == true) {
-			
-			System.out.println("\n");
-			System.out.println("Battery low and grass holder full... returning to base ! ");
-			System.out.println(grassCollected + " grass was cutted");
-			System.out.println("\n");
-			
-			returnToBase();
-			
+					
+					System.out.println("\n");
+					System.out.println("Battery low and grass holder full... returning to base ! ");
+					System.out.println(grassCollected + " grass was cutted");
+					System.out.println("\n");
+					
+					returnToBase();
+					
 		}
-		
-		if(turnAround() == true && holderFull != true) {
-			
-			System.out.println("\n");
-			System.out.println("Battery low... returning to base ! ");
-			System.out.println(grassCollected + " grass was cutted");
-			System.out.println("\n");
-			
-			returnToBase();
-			
-		}
-		
+	}
+	
+	private void checkIfFinished() {
+	
 		if(turnAround() != true && holderFull == false ) {
 			
 			distance = distance * 2;
@@ -190,7 +191,24 @@ public class LawnMower {
 			System.out.println("\n");
 			
 			returnToBase();
-		}
+		}	
+	}
+	
+	private void checkBattery() {
+		
+		if(turnAround() == true && holderFull != true) {
+			
+			System.out.println("\n");
+			System.out.println("Battery low... returning to base ! ");
+			System.out.println(grassCollected + " grass was cutted");
+			System.out.println("\n");
+			
+			returnToBase();
+			
+		}	
+	}
+	
+	private void checkGrassHolder() {
 		
 		if(holderFull == true && hasHold == true && turnAround() != true) {
 			
@@ -203,7 +221,7 @@ public class LawnMower {
 			
 			returnToBase();
 			
-		}
-	}		
+		}	
+	}
 }
 
