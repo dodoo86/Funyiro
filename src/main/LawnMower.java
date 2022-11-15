@@ -16,6 +16,8 @@ public class LawnMower {
 	boolean endReached = false;
 	boolean holderFull = false;
 	
+	ArrayList<String> dir = new ArrayList<String>();
+	
 	LawnMower(int ful, int[][] inp, int bladeh) {
 		
 		fuel = ful;
@@ -40,10 +42,10 @@ public class LawnMower {
 		
 	}
 	
-	public ArrayList<String> Iterate() {
+	private ArrayList<String> Iterate() {
 
 		
-		ArrayList<String> dir = new ArrayList<String>();
+		
 	
 		for(int i = 0; i < input.length; i++) {
 			
@@ -61,7 +63,9 @@ public class LawnMower {
 				cutGrass();
 				dir.add("Up");
 			} else {
+				
 				endReached = true;
+				
 			}
 		}
 		
@@ -79,9 +83,10 @@ public class LawnMower {
 				cutGrass();
 				dir.add("Up");
 			} else {
+				
 				endReached = true;
+				
 			}
-
 		}
 		
 	}
@@ -105,20 +110,19 @@ public class LawnMower {
 			input[curCol][curPos] = bladeHeight;
 			
 		}else if (holdSize <= grassCollected && hasHold == true) {
+			
 				holderFull = true;
+				
 				if(grassCollected / holdSize == 1 && hasHold == true && curCol % 2 == 1) {
-					System.out.println(grassCollected);
-					System.out.println(holdSize);
 					input[curCol ][curPos +1] = bladeHeight + (grassCollected - holdSize);
 					grassCollected = holdSize;
 				}
+				
 				if(grassCollected / holdSize == 1 && hasHold == true && curCol % 2 == 0) {
-					System.out.println(grassCollected);
-					System.out.println(holdSize);
 					input[curCol ][curPos -1] = bladeHeight + (grassCollected - holdSize);
 					grassCollected = holdSize;
 				}
-			}
+		}
 	}
 	
 	private static boolean turnAround() {
@@ -137,12 +141,22 @@ public class LawnMower {
 			for (int j = 0; j < input[i].length; j++)
 				System.out.print(input[i][j] + " ");
 			System.out.println();
-		}
-		
+			
+		}	
 	}
 	
-	public void checkStatus(ArrayList<String> dir) {
+	private void returnToBase() {
 		
+		for(int i = dir.size() -1 ; i >= 0; i--) {
+			System.out.println(dir.get(i));
+			}
+		
+			curPos = 0;
+		    curCol = 0;
+		    
+	}
+	
+	private void checkStatus(ArrayList<String> dir) {
 		
 		if(turnAround() == true && holderFull == true && hasHold == true) {
 			
@@ -151,13 +165,8 @@ public class LawnMower {
 			System.out.println(grassCollected + " grass was cutted");
 			System.out.println("\n");
 			
-			for(int i = dir.size() -1 ; i >= 0; i--) {
-				System.out.println(dir.get(i));
-				}
+			returnToBase();
 			
-				curPos = 0;
-			    curCol = 0;
-			    
 		}
 		
 		if(turnAround() == true && holderFull != true) {
@@ -167,12 +176,7 @@ public class LawnMower {
 			System.out.println(grassCollected + " grass was cutted");
 			System.out.println("\n");
 			
-			for(int i = dir.size() -1 ; i >= 0; i--) {
-				System.out.println(dir.get(i));
-				}
-			
-				curPos = 0;
-			    curCol = 0;
+			returnToBase();
 			
 		}
 		
@@ -185,36 +189,21 @@ public class LawnMower {
 			System.out.println(grassCollected + " grass was cutted");
 			System.out.println("\n");
 			
-			for(int i = dir.size() -1 ; i >= 0; i--) {
-				System.out.println(dir.get(i));
-				}
-			
-				curPos = 0;
-			    curCol = 0;
-		
+			returnToBase();
 		}
+		
 		if(holderFull == true && hasHold == true && turnAround() != true) {
 			
 			distance = distance * 2;
-			
-			
+
 			System.out.println("\n");
 			System.out.println("Grass holder full returning to base");
 			System.out.println(grassCollected + " grass was collected");
 			System.out.println("\n");
 			
-			for(int i = dir.size() -1 ; i >= 0; i--) {
-				System.out.println(dir.get(i));
-				}
-			
-				curPos = 0;
-			    curCol = 0;
+			returnToBase();
 			
 		}
-		
-			
-		
-	}
-		
+	}		
 }
 
