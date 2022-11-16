@@ -23,8 +23,8 @@ public class main {
 		  		           { 4, 2, 0, 3, 0, 2, 5, 2, 3, 1, 3 },
 		  		           { 8, 1, 2, 5, 1, 6, 7, 5, 0, 2, 2 } };
 		
-		//LawnMower a = new LawnMower(5, field, 1);//, true, 5);
-		LawnMower a = new LawnMowerWH(820, field, 2, true, 4);
+		LawnMower a = new LawnMower(5, field, 1);//, true, 5);
+		//LawnMower a = new LawnMowerWH(8, field, 2, true, 42);
 		//System.out.println(field.length);
 		a.start();
 		

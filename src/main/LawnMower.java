@@ -26,9 +26,8 @@ public class LawnMower {
 		
 	}
 	
-	
-	
 	public void start() {
+		
 		checkStatus(Iterate());
 		printArray();
 		
@@ -43,9 +42,6 @@ public class LawnMower {
 	
 	protected ArrayList<String> Iterate() {
 
-		
-		
-	
 		for(int i = 0; i < input.length; i++) {
 			
 		while(curPos < input[curCol].length -1 && curCol % 2 == 0 && turnAround() != true && holderFull == false) {
