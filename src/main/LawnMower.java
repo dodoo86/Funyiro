@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 public class LawnMower {
 
-	private static int fuel;
-	private static int distance = 0;
-	private int[][] input;
-	private int curPos = 0;
-	private int curCol = 0;
-	private int grassCollected = 0;
-	private int bladeHeight;
-	private int holdSize;
-	private boolean hasHold = false;
+	protected static int fuel;
+	protected static int distance = 0;
+	protected int[][] input;
+	protected int curPos = 0;
+	protected int curCol = 0;
+	protected int grassCollected = 0;
+	protected int bladeHeight;
+	protected int holdSize;
+	protected boolean hasHold = false;
 	boolean endReached = false;
 	boolean holderFull = false;
 	
@@ -26,15 +26,7 @@ public class LawnMower {
 		
 	}
 	
-	LawnMower(int ful, int[][] inp, int bladeh, boolean has, int size) {
-		
-		fuel = ful;
-		input = inp;
-		bladeHeight = bladeh;
-		holdSize = size;
-		hasHold = has;
-		
-	}
+	
 	
 	public void start() {
 		checkStatus(Iterate());
@@ -42,16 +34,14 @@ public class LawnMower {
 		
 	}
 	
-	private void checkStatus(ArrayList<String> dir) {
-		
-		checkBatteryAndHolder();
+	protected void checkStatus(ArrayList<String> dir) {
+			
 		checkIfFinished();
-		checkBattery();
-		checkGrassHolder();
+		checkBattery();	
 
 	}		
 	
-	private ArrayList<String> Iterate() {
+	protected ArrayList<String> Iterate() {
 
 		
 		
@@ -71,10 +61,7 @@ public class LawnMower {
 				distance++;
 				cutGrass();
 				dir.add("Up");
-			} else {
-				
-				//endReached = true;
-				
+	
 			}
 		}
 		
@@ -91,13 +78,9 @@ public class LawnMower {
 				distance++;
 				cutGrass();
 				dir.add("Up");
-			} else {
-				
-				//endReached = true;
 				
 			}
 		}
-		
 	}
 		
 		return dir;
@@ -105,7 +88,7 @@ public class LawnMower {
 	}
 		
 	
-	private void cutGrass() {
+	protected void cutGrass() {
 		
 		if(input[curCol][curPos] >= bladeHeight && bladeHeight > 0 && hasHold == false) {
 			
@@ -113,28 +96,9 @@ public class LawnMower {
 			input[curCol][curPos] = bladeHeight;
 			
 		}
-		
-		if(holdSize > grassCollected && input[curCol][curPos] >= bladeHeight && bladeHeight > 0 && hasHold == true && holderFull == false) {
-			grassCollected += input[curCol][curPos] - bladeHeight;
-			input[curCol][curPos] = bladeHeight;
-			
-		}else if (holdSize <= grassCollected && hasHold == true) {
-			
-				holderFull = true;
-				
-				if(grassCollected / holdSize == 1 && hasHold == true && curCol % 2 == 1) {
-					input[curCol ][curPos +1] = bladeHeight + (grassCollected - holdSize);
-					grassCollected = holdSize;
-				}
-				
-				if(grassCollected / holdSize == 1 && hasHold == true && curCol % 2 == 0) {
-					input[curCol ][curPos -1] = bladeHeight + (grassCollected - holdSize);
-					grassCollected = holdSize;
-				}
-		}
 	}
 	
-	private static boolean turnAround() {
+	protected static boolean turnAround() {
 		
 		if(fuel  / 2 <= distance)
 			return true;
@@ -143,7 +107,7 @@ public class LawnMower {
 		
 	}
 	
-	private void printArray() {
+	protected void printArray() {
 		
 		System.out.println("\n");
 		for (int i = 0; i < input.length; i++) {
@@ -154,7 +118,7 @@ public class LawnMower {
 		}	
 	}
 	
-	private void returnToBase() {
+	protected void returnToBase() {
 		
 		for(int i = dir.size() -1 ; i >= 0; i--) {
 			System.out.println(dir.get(i));
@@ -165,21 +129,7 @@ public class LawnMower {
 		    
 	}
 	
-	private void checkBatteryAndHolder() {
-		
-		if(turnAround() == true && holderFull == true && hasHold == true && endReached == false) {
-					
-					System.out.println("\n");
-					System.out.println("Battery low and grass holder full... returning to base ! ");
-					System.out.println(grassCollected + " grass was cutted");
-					System.out.println("\n");
-					
-					returnToBase();
-					
-		}
-	}
-	
-	private void checkIfFinished() {
+	protected void checkIfFinished() {
 	
 		if(turnAround() != true && holderFull == false ) {
 			
@@ -195,29 +145,13 @@ public class LawnMower {
 		}	
 	}
 	
-	private void checkBattery() {
+	protected void checkBattery() {
 		
 		if(turnAround() == true && holderFull != true && endReached == false) {
 			
 			System.out.println("\n");
 			System.out.println("Battery low... returning to base ! ");
 			System.out.println(grassCollected + " grass was cutted");
-			System.out.println("\n");
-			
-			returnToBase();
-			
-		}	
-	}
-	
-	private void checkGrassHolder() {
-		
-		if(holderFull == true && hasHold == true && turnAround() != true && endReached == false) {
-			
-			distance = distance * 2;
-
-			System.out.println("\n");
-			System.out.println("Grass holder full returning to base");
-			System.out.println(grassCollected + " grass was collected");
 			System.out.println("\n");
 			
 			returnToBase();
